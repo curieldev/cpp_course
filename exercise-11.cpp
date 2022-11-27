@@ -17,12 +17,12 @@ class Employee
       this->name = name;
     }
 
-    int getId()
+    int getId(void)
     {
       return id;
     }
 
-    string getName()
+    string getName(void)
     {
       return name;
     }
@@ -39,7 +39,7 @@ class FullTime : public Employee
       this->salary = salary;
     }
 
-    int getSalary()
+    int getSalary(void)
     {
       return salary;
     }
@@ -56,7 +56,7 @@ class PartTime : public Employee
       this->wage = wage;
     }
 
-    int getWage()
+    int getWage(void)
     {
       return wage;
     }

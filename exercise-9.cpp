@@ -33,7 +33,7 @@ class Student
       return (marks[0] + marks[1] + marks[2])/3;
     }
 
-    string getName()
+    string getName(void)
     {
       return name;
     }

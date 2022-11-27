@@ -9,7 +9,7 @@ class Rational
   int denominator;
 
   public:
-    Rational ()
+    Rational (void)
     {
       this->numerator   = 1;
       this->denominator = 1;
