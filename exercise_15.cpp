@@ -144,7 +144,6 @@ int main (int argc, char **argv)
       cout << endl;
 
       vector<Item>::iterator item;
-      // int lineNumber = 0;
       for (item = items.begin(); item < items.end(); item++)
       {
         if (!name.compare((*item).getName()))
@@ -167,29 +166,6 @@ int main (int argc, char **argv)
         itemsWriteOnly.close();
       }
 
-      // vector<string> lines;
-      // itemsReadOnly.open("items.csv");
-      // if (itemsReadOnly.is_open())
-      // {
-      //   string line;
-      //   while (getline(itemsReadOnly, line))
-      //     lines.push_back(line);
-        
-      //   itemsReadOnly.close();
-      // }
-
-      // ofstream itemsWriteOnly;
-
-      // itemsWriteOnly.open("items.csv", ios::trunc);
-      // if (itemsWriteOnly.is_open())
-      // {
-      //   for (int i = 0; i < lines.size(); i++)
-      //   {
-      //     if (i != lineNumber)
-      //       itemsWriteOnly << lines[i];
-      //   }
-      //   itemsWriteOnly.close();
-      // }
     }
     else
     {
