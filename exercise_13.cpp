@@ -6,8 +6,15 @@ using std::cout;
 using std::endl;
 
 
-class StackOverFlow  : exception{};
-class StackUnderFlow : exception{};
+class StackOverFlow  : exception
+{
+  // Nothing to do.
+};
+
+class StackUnderFlow : exception
+{
+  // Nothing to do.
+};
 
 class Stack
 {
@@ -21,6 +28,11 @@ class Stack
     {
       size  = stack_size;
       stack = new int[size];
+    }
+
+    ~Stack ()
+    {
+      delete [] stack;
     }
 
     void push (int x)
@@ -55,8 +67,13 @@ int main (int argc, char **argv)
   {
     char selection;
 
-    cout << "Push, pop or quit? u/o/q: ";
+    cout << "Options.";
+    cout << "(u) Push" << endl;
+    cout << "(o) Pop" << endl;
+    cout << "(q) Quit" << endl;
+    cout << "Select: ";
     cin >> selection;
+    cout << endl;
 
     if (tolower(selection) == 'q')
     {
@@ -67,6 +84,7 @@ int main (int argc, char **argv)
       int n;
       cout << "Enter a number: ";
       cin >> n;
+      cout << endl;
       steak.push(n);
     }
     else if (tolower(selection) == 'o')
