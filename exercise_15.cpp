@@ -1,7 +1,6 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-#include <string>
 
 using std::cin;
 using std::cout;
@@ -12,7 +11,6 @@ using std::ifstream;
 using std::ofstream;
 using std::ios;
 using std::vector;
-using std::getline;
 using std::ws;
 
 
