@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <string>
 
 using std::cin;
 using std::cout;
@@ -11,6 +12,9 @@ using std::ifstream;
 using std::ofstream;
 using std::ios;
 using std::vector;
+using std::getline;
+using std::ws;
+
 
 class Item
 {
@@ -60,6 +64,7 @@ ofstream & operator << (ofstream &ofs, Item &i)
 ifstream & operator >> (ifstream &ifs, Item &i)
 {
   ifs >> i.name >> i.price >> i.quantity;
+  ifs >> ws;
   return ifs;
 }
 
@@ -103,6 +108,7 @@ int main (int argc, char **argv)
       {
         cout << items[i] << endl;
       }
+      cout << endl;
     }
     else if (selection == '2')
     {
@@ -125,7 +131,7 @@ int main (int argc, char **argv)
       itemsWriteOnly.open("items.csv", ios::app);
       if (itemsWriteOnly.is_open())
       {
-        itemsWriteOnly << newItem;
+        itemsWriteOnly << newItem << endl;
         itemsWriteOnly.close();
       }
 
@@ -138,12 +144,14 @@ int main (int argc, char **argv)
       cout << endl;
 
       vector<Item>::iterator item;
+      // int lineNumber = 0;
       for (item = items.begin(); item < items.end(); item++)
       {
         if (!name.compare((*item).getName()))
         {
-          item = items.erase(item);
+          items.erase(item);
           cout << name << " has been removed from storage." << endl << endl;
+          break;
         }
       }
 
@@ -152,13 +160,36 @@ int main (int argc, char **argv)
       itemsWriteOnly.open("items.csv", ios::trunc);
       if (itemsWriteOnly.is_open())
       {
-        int i = 0;
-        for (i = 0; i < items.size(); i++)
+        for (int i = 0; i < items.size(); i++)
         {
-          itemsWriteOnly << items[i];
+          itemsWriteOnly << items[i] << endl;
         }
         itemsWriteOnly.close();
       }
+
+      // vector<string> lines;
+      // itemsReadOnly.open("items.csv");
+      // if (itemsReadOnly.is_open())
+      // {
+      //   string line;
+      //   while (getline(itemsReadOnly, line))
+      //     lines.push_back(line);
+        
+      //   itemsReadOnly.close();
+      // }
+
+      // ofstream itemsWriteOnly;
+
+      // itemsWriteOnly.open("items.csv", ios::trunc);
+      // if (itemsWriteOnly.is_open())
+      // {
+      //   for (int i = 0; i < lines.size(); i++)
+      //   {
+      //     if (i != lineNumber)
+      //       itemsWriteOnly << lines[i];
+      //   }
+      //   itemsWriteOnly.close();
+      // }
     }
     else
     {
