@@ -1,0 +1,7 @@
+{
+  "cmake.configureOnOpen": true,
+  "cmake.sourceDirectory": "${workspaceFolder}/bank_project",
+  "files.associations": {
+    "iostream": "cpp"
+  }
+}
