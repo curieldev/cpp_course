@@ -5,16 +5,15 @@
 #include <fstream>
 #include <vector>
 
-#define BANK_DB                   "bank_storage.csv"
-#define ID_RECORD                 "id_record.data"
+constexpr char BANK_DB[]   = "bank_storage.csv";
+constexpr char ID_RECORD[] = "id_record.data";
 
-#define OPERATION_MIN_VALUE       1
-#define OPERATION_MAX_VALUE       7
+constexpr unsigned char OPERATION_MIN_VALUE = 1;
+constexpr unsigned char OPERATION_MAX_VALUE = 7;
 
-#define ACCOUNT_DOES_NOT_EXIST    (-1)
-#define INVALID_INDEX             (-1)
-#define INSUFFICIENT_FUNDS        (-2)
-
+constexpr int ACCOUNT_DOES_NOT_EXIST = -1;
+constexpr int INVALID_INDEX          = -1;
+constexpr int INSUFFICIENT_FUNDS     = -2;
 
 enum class BankOperation
 {
@@ -30,10 +29,10 @@ enum class BankOperation
 class BankAccount
 {
   private:
-    unsigned int id_;
-    std::string first_name_;
-    std::string last_name_;
-    int balance_;
+    unsigned int id;
+    std::string first_name;
+    std::string last_name;
+    int balance;
 
   public:
     unsigned int get_id();
@@ -45,8 +44,8 @@ class BankAccount
                                         BankAccount &account);
     friend std::ifstream & operator >> (std::ifstream &inputFile, 
                                         BankAccount &account);
-    BankAccount (std::string first_name, std::string last_name,
-                 int balance, unsigned int id);
+    BankAccount (const std::string &first_name, const std::string &last_name,
+                 const int balance, const unsigned int id);
 };
 
 class Bank

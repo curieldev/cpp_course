@@ -1,3 +1,12 @@
+// Ideas to improve project
+//
+// Change defines to constexpr
+// Find a way to not return multiple values as pointer parameters.
+// Change raw pointers to smart pointers
+// Improve input handling, validate names, etc.
+// Make a function to be DRY requesting input to user.
+// Add const where needed.
+
 // Banking System Project
 // Features:
 // Open account
@@ -15,11 +24,12 @@
 
 // Standard libraries
 #include <iostream>
+#include <string>
 
 // User libraries
 #include "bank.h"
 
-#define IGNORE_CHARS              256
+constexpr std::streamsize IGNORE_CHARS = 256;
 
 void display_menu();
 BankOperation get_operation();
@@ -28,7 +38,6 @@ void get_account_data(std::string * const fname, std::string * const lname,
                       int * const balance);
 void get_account_id(unsigned int * const id);
 void get_transaction_data(unsigned int * const id, int * const amount);
-
 
 int main (int argc, char **argv)
 {
@@ -202,13 +211,36 @@ void get_account_id(unsigned int * const id)
   }
 }
 
+bool isNameValid (std::string &str)
+{
+  for (int i = 0; i < str.size(); i++)
+  {
+    if (!(isalpha(str[i]) || isblank(str[i])))
+    {
+      std::cout << "Enter a valid name. Only alphabetic letters and spaces ";
+      std::cout << "are allowed." << std::endl << std::endl;
+      return false;
+    }
+  }
+  return true;
+}
+
+void readName (const std::string &prompt, std::string * const result)
+{
+  do
+  {
+    std::cout << prompt;
+    std::getline(std::cin, *result);
+    // std::cin.ignore(IGNORE_CHARS, '\n');
+  } while (!isNameValid(*result));
+}
+
 void get_account_data(std::string * const fname, std::string * const lname, 
                       int * const balance)
 {
-  std::cout << "First Name: ";
-  std::cin >> *fname;
-  std::cout << "Last Name: ";
-  std::cin >> *lname;
+  readName("First Name: ", fname);
+  readName("Last Name: ", lname);
+
   while (true)
   {
     std::cout << "Initial Balance: ";

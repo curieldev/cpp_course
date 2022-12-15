@@ -2,61 +2,61 @@
 
 unsigned int Bank::last_id = 0;
 
-BankAccount::BankAccount (std::string first_name = "", 
-                          std::string last_name = "",
-                          int balance = 0, 
-                          unsigned int id = 0)
+BankAccount::BankAccount (const std::string &first_name = "", 
+                          const std::string &last_name = "",
+                          const int balance = 0, 
+                          const unsigned int id = 0)
 {
-  first_name_ = first_name;
-  last_name_  = last_name;
-  balance_    = balance;
-  id_ = id;
+  this->first_name = first_name;
+  this->last_name  = last_name;
+  this->balance    = balance;
+  this->id         = id;
 }
 
 unsigned int BankAccount::get_id()
 {
-  return id_;
+  return this->id;
 }
 
 int BankAccount::get_balance()
 {
-  return balance_;
+  return this->balance;
 }
 
 void BankAccount::deposit (unsigned int amount)
 {
-  balance_ += amount;
+  this->balance += amount;
 }
 
 int BankAccount::withdraw (unsigned int amount)
 {
-  if ((balance_ - static_cast<int>(amount)) < 0)
+  if ((this->balance - static_cast<int>(amount)) < 0)
     return INSUFFICIENT_FUNDS;
   
-  balance_ -= amount;
+  this->balance -= amount;
   return 0;
 }
 
 std::ostream & operator << (std::ostream &os, BankAccount &account)
 {
-  os << "Account ID: " << account.id_ << std::endl;
-  os << "First Name: " << account.first_name_ << std::endl;
-  os << "Last Name:  " << account.last_name_ << std::endl;
-  os << "Balance:    " << account.balance_ << std::endl;
+  os << "Account ID: " << account.id << std::endl;
+  os << "First Name: " << account.first_name << std::endl;
+  os << "Last Name:  " << account.last_name << std::endl;
+  os << "Balance:    " << account.balance << std::endl;
   return os;
 }
 
 std::ofstream & operator << (std::ofstream &ofs, BankAccount &account)
 {
-  ofs << account.id_ << ' ' << account.first_name_ << ' ';
-  ofs << account.last_name_ << ' ' << account.balance_ << std::endl;
+  ofs << account.id << ' ' << account.first_name << ' ';
+  ofs << account.last_name << ' ' << account.balance << std::endl;
   return ofs;
 }
 
 std::ifstream & operator >> (std::ifstream &ifs, BankAccount &account)
 {
-  ifs >> account.id_ >> account.first_name_;
-  ifs >> account.last_name_ >> account.balance_;
+  ifs >> account.id >> account.first_name;
+  ifs >> account.last_name >> account.balance;
   ifs >> std::ws;
   return ifs;
 }
