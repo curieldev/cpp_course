@@ -62,7 +62,6 @@ int main (int argc, char **argv)
 
   Stack steak(stack_size);
 
-  char keep_running;
   for (;;)
   {
     char selection;

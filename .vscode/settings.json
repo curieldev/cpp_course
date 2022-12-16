@@ -1,6 +1,6 @@
 {
   "cmake.configureOnOpen": true,
-  "cmake.sourceDirectory": "${workspaceFolder}/bank_project",
+  "cmake.sourceDirectory": "${workspaceFolder}",
   "files.associations": {
     "iostream": "cpp"
   }
