@@ -3,6 +3,7 @@
 // Change raw pointers to smart pointers
 // Add const where needed.
 // DONE:
+// Update extraction operator overload,
 // Change defines to constexpr
 // Improve input handling, validate names, etc.
 // Make a function to be DRY requesting input to user.

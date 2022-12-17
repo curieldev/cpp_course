@@ -1,3 +1,5 @@
+#include <string>
+
 #include "bank.h"
 
 unsigned int Bank::last_id = 0;
@@ -48,15 +50,18 @@ std::ostream & operator << (std::ostream &os, BankAccount &account)
 
 std::ofstream & operator << (std::ofstream &ofs, BankAccount &account)
 {
-  ofs << account.id << ' ' << account.first_name << ' ';
-  ofs << account.last_name << ' ' << account.balance << std::endl;
+  ofs << account.id << ',' << account.first_name << ',';
+  ofs << account.last_name << ',' << account.balance << std::endl;
   return ofs;
 }
 
 std::ifstream & operator >> (std::ifstream &ifs, BankAccount &account)
 {
-  ifs >> account.id >> account.first_name;
-  ifs >> account.last_name >> account.balance;
+  ifs >> account.id;
+  ifs.ignore(1, ',');
+  std::getline(ifs, account.first_name, ',');
+  std::getline(ifs, account.last_name, ',');
+  ifs >> account.balance;
   ifs >> std::ws;
   return ifs;
 }
