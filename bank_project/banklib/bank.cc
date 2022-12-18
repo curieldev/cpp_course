@@ -25,18 +25,22 @@ int BankAccount::get_balance()
   return this->balance;
 }
 
-void BankAccount::deposit (unsigned int amount)
+int BankAccount::deposit (unsigned int amount)
 {
+  if ((this->balance > 0) && (static_cast<int>(amount) > INT_MAX - this->balance))
+    return OUT_OF_BOUNDS;
+
   this->balance += amount;
+  return OK;
 }
 
 int BankAccount::withdraw (unsigned int amount)
 {
   if ((this->balance - static_cast<int>(amount)) < 0)
-    return INSUFFICIENT_FUNDS;
+    return OUT_OF_BOUNDS;
   
   this->balance -= amount;
-  return 0;
+  return OK;
 }
 
 std::ostream & operator << (std::ostream &os, BankAccount &account)
@@ -135,11 +139,11 @@ Bank::~Bank ()
   syncData();
 }
 
-void Bank::open_account(std::string new_fname, std::string new_lname, 
-                  int new_balance)
+void Bank::openAccount(const std::string &firstName, 
+                        const std::string &lastname, const int balance)
 {
-  BankAccount new_account(new_fname, new_lname, new_balance, ++last_id);
-  Accounts.push_back(new_account);
+  BankAccount newAccount(firstName, lastname, balance, ++last_id);
+  Accounts.push_back(newAccount);
   syncData();
 }
 
@@ -167,26 +171,33 @@ int Bank::close_account(unsigned int id)
 
 int Bank::deposit(unsigned int id, unsigned int amount)
 {
+  int depositResult;
   int account_index = find_account_index(id);
 
   if (account_index == INVALID_INDEX)
     return ACCOUNT_DOES_NOT_EXIST;
 
-  Accounts[account_index].deposit(amount);
+  depositResult = Accounts[account_index].deposit(amount);
   
-  syncData();
-  return 0;
+  if (depositResult == OK)
+    syncData();
+
+  return depositResult;
 }
 
 int Bank::withdraw(unsigned int id, unsigned int amount)
 {
+  int withdrawResult;
   int account_index = find_account_index(id);
 
   if (account_index == INVALID_INDEX)
     return ACCOUNT_DOES_NOT_EXIST;
 
-  syncData();
-  return Accounts[account_index].withdraw(amount);
+  withdrawResult = Accounts[account_index].withdraw(amount);
+  if (withdrawResult == OK)
+    syncData();
+
+  return withdrawResult;
 }
 
 int Bank::get_balance(unsigned int id)

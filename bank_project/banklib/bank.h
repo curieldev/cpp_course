@@ -11,9 +11,10 @@ constexpr char ID_RECORD[] = "id_record.data";
 constexpr unsigned char OPERATION_MIN_VALUE = 1;
 constexpr unsigned char OPERATION_MAX_VALUE = 7;
 
+constexpr int OK                     = 0;
 constexpr int ACCOUNT_DOES_NOT_EXIST = -1;
 constexpr int INVALID_INDEX          = -1;
-constexpr int INSUFFICIENT_FUNDS     = -2;
+constexpr int OUT_OF_BOUNDS          = -2;
 
 enum class BankOperation
 {
@@ -37,7 +38,7 @@ class BankAccount
   public:
     unsigned int get_id();
     int get_balance();
-    void deposit (unsigned int amount);
+    int deposit (unsigned int amount);
     int withdraw (unsigned int amount);
     friend std::ostream & operator << (std::ostream &out, BankAccount &account);
     friend std::ofstream & operator << (std::ofstream &outputFile, 
@@ -60,8 +61,8 @@ class Bank
   public:
     Bank();
     ~Bank ();
-    void open_account(std::string new_fname, std::string new_lname, 
-                      int new_balance);
+    void openAccount(const std::string &firstName, 
+                     const std::string &lastName, const int balance);
     void display_all_accounts();
     int deposit(unsigned int id, unsigned int amount);
     int withdraw(unsigned int id, unsigned int amount);

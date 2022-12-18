@@ -1,8 +1,10 @@
 // Ideas to improve project
 // TODO:
-// Change raw pointers to smart pointers
-// Add const where needed.
+// 
 // DONE:
+// Add limits for deposit and withdraw to avoid overflow
+// Add const where needed.
+// Change raw pointers to references
 // Update extraction operator overload,
 // Change defines to constexpr
 // Improve input handling, validate names, etc.
@@ -33,14 +35,14 @@
 int main (int argc, char **argv)
 {
   Bank neoBank;
-  BankOperation chosenOperation;
+  BankOperation doThis;
 
   do
   {
     displayMenu();
-    chosenOperation = readOperation();
-    doOperation(&neoBank, chosenOperation);
+    doThis = readOperation();
+    doOperation(neoBank, doThis);
   }
-  while(chosenOperation != BankOperation::Quit);
+  while(doThis != BankOperation::Quit);
   return 0;
 }
